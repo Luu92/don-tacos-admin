@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #f5b800;
+  --color-primary-dark: #d99a00;
+  --color-primary-soft: #fff5cc;
+
+  --color-dark: #222222;
+  --color-dark-soft: #343434;
+
+  --color-background: #f6f6f6;
+  --color-surface: #ffffff;
+
+  --color-text: #333333;
+  --color-text-secondary: #707070;
+  --color-border: #dedede;
+
+  --color-success: #43a047;
+  --color-warning: #fb8c00;
+  --color-danger: #e53935;
+  --color-info: #1e88e5;
+
+  --radius-small: 8px;
+  --radius-medium: 14px;
+  --radius-large: 22px;
+
+  --shadow-card: 0 12px 35px rgba(0, 0, 0, 0.12);
+  --shadow-input: 0 0 0 3px rgba(245, 184, 0, 0.18);
+
+  --transition-fast: 180ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-text);
+  background: var(--color-background);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}

@@ -1,0 +1,62 @@
+:host {
+  display: inline-flex;
+}
+
+.status-badge {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 11px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-badge--pendiente {
+  color: #8a6100;
+  background: #fff3c4;
+}
+
+.status-badge--aceptado {
+  color: #1556a0;
+  background: #e6f1ff;
+}
+
+.status-badge--en_preparacion {
+  color: #a64b00;
+  background: #fff0df;
+}
+
+.status-badge--listo {
+  color: #1f7a35;
+  background: #e5f6e9;
+}
+
+.status-badge--enviado {
+  color: #3554a4;
+  background: #e8edff;
+}
+
+.status-badge--entregado {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.status-badge--rechazado {
+  color: #b42318;
+  background: #fee4e2;
+}
+
+.status-badge--retrasado {
+  color: #b54708;
+  background: #ffead5;
+}

@@ -1,0 +1,26 @@
+<div class="admin-layout">
+  <div
+    class="admin-layout__overlay"
+    [class.admin-layout__overlay--visible]="sidebarAbierto()"
+    (click)="cerrarSidebar()"
+  ></div>
+
+  <div
+    class="admin-layout__sidebar"
+    [class.admin-layout__sidebar--open]="sidebarAbierto()"
+  >
+    <app-sidebar
+      (navegacionRealizada)="cerrarSidebar()"
+    />
+  </div>
+
+  <div class="admin-layout__main">
+    <app-topbar
+      (menuClick)="alternarSidebar()"
+    />
+
+    <main class="admin-layout__content">
+      <router-outlet />
+    </main>
+  </div>
+</div>

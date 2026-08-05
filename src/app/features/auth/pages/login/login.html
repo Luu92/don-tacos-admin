@@ -1,0 +1,133 @@
+<main class="login-page">
+  <section class="login-card">
+
+    <div class="login-image">
+      <div class="login-image__overlay"></div>
+
+      <div class="login-image__content">
+        <p class="login-image__subtitle">Don Taco's Food</p>
+
+        <h2>
+          El sabor que conquista atraves de la
+          <span>Familia</span>
+        </h2>
+
+        <p>
+          Administra pedidos, alimentos y promociones desde un solo lugar.
+        </p>
+      </div>
+    </div>
+
+    <div class="login-form-container">
+      <div class="login-form-content">
+
+        <header class="login-header">
+          <img src="assets/img/logo.png" alt="Don Taco's Food" class="login-logo" />
+
+          <div>
+            <p class="login-eyebrow">Panel administrativo</p>
+            <h1>Bienvenido</h1>
+            <p class="login-description">
+              Ingresa tus credenciales para continuar.
+            </p>
+          </div>
+        </header>
+
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" novalidate>
+          <div class="form-field">
+            <label for="usuario">Usuario</label>
+
+            <div class="input-container" [class.input-container--error]="campoInvalido('usuario')">
+              <span class="input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M20 21a8 8 0 0 0-16 0"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </span>
+
+              <input id="usuario" type="text" formControlName="usuario" placeholder="Escribe tu usuario"
+                autocomplete="username" />
+            </div>
+
+            @if (campoInvalido('usuario')) {
+            <small class="form-error">
+              El usuario es obligatorio.
+            </small>
+            }
+          </div>
+
+          <div class="form-field">
+            <label for="password">Contraseña</label>
+
+            <div class="input-container" [class.input-container--error]="campoInvalido('password')">
+              <span class="input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                </svg>
+              </span>
+
+              <input id="password" [type]="mostrarPassword() ? 'text' : 'password'" formControlName="password"
+                placeholder="Escribe tu contraseña" autocomplete="current-password" />
+
+              <button type="button" class="password-button" (click)="alternarPassword()" [attr.aria-label]="
+                  mostrarPassword()
+                    ? 'Ocultar contraseña'
+                    : 'Mostrar contraseña'
+                ">
+                @if (mostrarPassword()) {
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M3 3l18 18"></path>
+                  <path d="M10.6 10.7a2 2 0 0 0 2.7 2.7"></path>
+                  <path d="M9.9 4.2A10.6 10.6 0 0 1 12 4c5.5 0 9 5 9 5a16 16 0 0 1-2.1 2.8"></path>
+                  <path d="M6.6 6.6C4.2 8.2 3 10 3 10s3.5 5 9 5a9.8 9.8 0 0 0 3-.5"></path>
+                </svg>
+                } @else {
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path>
+                  <circle cx="12" cy="12" r="2.5"></circle>
+                </svg>
+                }
+              </button>
+            </div>
+
+            @if (campoInvalido('password')) {
+            <small class="form-error">
+              La contraseña debe contener al menos 6 caracteres.
+            </small>
+            }
+          </div>
+
+          <div class="login-options">
+            <label class="remember-option">
+              <input type="checkbox" formControlName="recordarSesion" />
+
+              <span>Recordar sesión</span>
+            </label>
+
+            <button type="button" class="forgot-password" disabled title="Disponible en una versión posterior">
+              ¿Olvidaste tu contraseña?
+            </button>
+          </div>
+
+          @if (credencialesInvalidas()) {
+          <div class="login-alert" role="alert">
+            <span class="login-alert__icon" aria-hidden="true">
+              !
+            </span>
+
+            <span>
+              El usuario o la contraseña son incorrectos.
+            </span>
+          </div>
+          }
+
+          <button type="submit" class="login-button">
+            Iniciar sesión
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+</main>

@@ -1,0 +1,119 @@
+<aside class="sidebar">
+  <header class="sidebar__brand">
+    <img
+      src="assets/img/logo.png"
+      alt="Don Taco's Food"
+      class="sidebar__logo"
+    />
+
+    <div class="sidebar__brand-text">
+      <strong>Don Taco's</strong>
+      <span>Panel administrativo</span>
+    </div>
+  </header>
+
+  <div class="sidebar__divider"></div>
+
+  <nav
+    class="sidebar__navigation"
+    aria-label="Navegación principal"
+  >
+    <p class="sidebar__section-title">
+      Administración
+    </p>
+
+    @for (item of menuItems; track item.ruta) {
+      <a
+        class="sidebar__link"
+        [routerLink]="item.ruta"
+        routerLinkActive="sidebar__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="cerrarSidebar()"
+      >
+        <span
+          class="sidebar__icon"
+          aria-hidden="true"
+        >
+          @switch (item.icono) {
+            @case ('pedidos') {
+              <svg viewBox="0 0 24 24">
+                <path d="M6 3h12v18H6z"></path>
+                <path d="M9 7h6M9 11h6M9 15h4"></path>
+              </svg>
+            }
+
+            @case ('dashboard') {
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+              </svg>
+            }
+
+            @case ('alimentos') {
+              <svg viewBox="0 0 24 24">
+                <path d="M4 12h16"></path>
+                <path d="M6 12a6 6 0 0 1 12 0"></path>
+                <path d="M3 16h18"></path>
+              </svg>
+            }
+
+            @case ('categorias') {
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h6v6H4z"></path>
+                <path d="M14 4h6v6h-6z"></path>
+                <path d="M4 14h6v6H4z"></path>
+                <path d="M14 14h6v6h-6z"></path>
+              </svg>
+            }
+
+            @case ('promociones') {
+              <svg viewBox="0 0 24 24">
+                <path d="M20 12l-8 8-8-8 8-8z"></path>
+                <circle cx="12" cy="9" r="1.5"></circle>
+              </svg>
+            }
+          }
+        </span>
+
+        <span>{{ item.etiqueta }}</span>
+      </a>
+    }
+  </nav>
+
+  <footer class="sidebar__footer">
+    <div class="sidebar__user">
+      <span class="sidebar__avatar">
+        {{ usuario()?.nombre?.charAt(0) ?? 'A' }}
+      </span>
+
+      <div class="sidebar__user-data">
+        <strong>
+          {{ usuario()?.nombre ?? 'Administrador' }}
+        </strong>
+
+        <span>
+          {{ usuario()?.rol ?? 'ADMINISTRADOR' }}
+        </span>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="sidebar__logout"
+      (click)="cerrarSesion()"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path d="M10 4H5v16h5"></path>
+        <path d="M14 8l4 4-4 4"></path>
+        <path d="M18 12H9"></path>
+      </svg>
+
+      <span>Cerrar sesión</span>
+    </button>
+  </footer>
+</aside>

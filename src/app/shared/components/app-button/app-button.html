@@ -1,0 +1,23 @@
+<button
+  class="app-button"
+  [class.app-button--primary]="variant() === 'primary'"
+  [class.app-button--secondary]="variant() === 'secondary'"
+  [class.app-button--success]="variant() === 'success'"
+  [class.app-button--danger]="variant() === 'danger'"
+  [class.app-button--ghost]="variant() === 'ghost'"
+  [class.app-button--full]="fullWidth()"
+  [disabled]="disabled() || loading()"
+  [attr.type]="type()"
+  (click)="emitirClick($event)"
+>
+  @if (loading()) {
+    <span
+      class="app-button__spinner"
+      aria-hidden="true"
+    ></span>
+
+    <span>Procesando...</span>
+  } @else {
+    <ng-content />
+  }
+</button>

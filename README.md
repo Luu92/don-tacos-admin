@@ -1,59 +1,162 @@
-# DonTacosAdmin
+# 🌮 Don Taco's Food - Panel Administrativo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.2.
+Sistema administrativo desarrollado con **Angular 22** para la gestión de pedidos, alimentos, categorías y promociones de la taquería **Don Taco's Food**.
 
-## Development server
+Este proyecto forma parte de un ecosistema compuesto por una aplicación móvil para comensales (Flutter), un backend basado en Spring Boot y este panel administrativo utilizado por el personal de la taquería.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+## 📖 Descripción
+
+El objetivo del sistema es facilitar la administración diaria de la taquería mediante una interfaz intuitiva que permita:
+
+- Consultar pedidos en tiempo real.
+- Gestionar el estado de las órdenes.
+- Administrar la carta de alimentos.
+- Gestionar promociones.
+- Consultar indicadores operativos.
+- Preparar la integración con un backend basado en microservicios.
+
+Actualmente el proyecto utiliza datos simulados (mock) mientras se desarrolla el backend.
+
+---
+
+## 🛠 Tecnologías
+
+- Angular 22
+- TypeScript
+- HTML5
+- CSS3
+- Angular Signals
+- Angular Router
+- Reactive Forms
+
+---
+
+## 📁 Arquitectura
+
+```text
+src/
+│
+├── core/
+│
+├── features/
+│   ├── auth/
+│   ├── pedidos/
+│   ├── alimentos/
+│   ├── categorias/
+│   ├── promociones/
+│   └── dashboard/
+│
+├── layout/
+│
+├── shared/
+│
+└── assets/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+La arquitectura está basada en **Feature First**, permitiendo que cada módulo evolucione de forma independiente.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Funcionalidades implementadas
 
-```bash
-ng generate component component-name
+### Autenticación
+
+- Login administrativo.
+- Validación simulada.
+- Persistencia de sesión.
+- Protección de rutas.
+- Cierre de sesión.
+
+### Panel administrativo
+
+- Sidebar responsive.
+- Topbar.
+- Navegación protegida.
+- Componentes reutilizables.
+
+### Gestión de pedidos
+
+- Visualización de pedidos.
+- Cambio de estados.
+- Promoción 2x1 para tacos al pastor.
+- Comentarios del cliente.
+- Dirección de entrega.
+- Simulación de llegada de nuevos pedidos.
+- Notificación visual y sonora.
+
+---
+
+## 🚧 Funcionalidades en desarrollo
+
+- Dashboard operativo.
+- Gestión de alimentos.
+- Gestión de categorías.
+- Gestión de promociones.
+- Detalle completo del pedido.
+- Integración con Spring Boot.
+- WebSockets para pedidos en tiempo real.
+- Autenticación JWT.
+
+---
+
+## 📌 Reglas de negocio implementadas
+
+- Pedido mínimo de alimentos: **$200 MXN**.
+- Cargo de servicio: **$20 MXN**.
+- Promoción **2x1** exclusiva para tacos al pastor.
+- La cantidad mostrada para cocina corresponde a la cantidad real que debe prepararse.
+- Gestión del estado del pedido durante todo su ciclo de vida.
+
+---
+
+## 🔄 Flujo principal
+
+```text
+Login
+
+↓
+
+Pedidos recibidos
+
+↓
+
+Aceptar pedido
+
+↓
+
+En preparación
+
+↓
+
+Listo
+
+↓
+
+Enviado
+
+↓
+
+Entregado
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📱 Ecosistema del proyecto
 
-## Building
+Este panel administrativo forma parte de un proyecto más amplio compuesto por:
 
-To build the project run:
+- Aplicación móvil Flutter para clientes.
+- Backend desarrollado con Spring Boot.
+- Panel administrativo Angular.
 
-```bash
-ng build
-```
+Todos los proyectos compartirán el mismo modelo de datos para facilitar su integración.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 👨‍💻 Autor
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+**Luis Alberto Molina**
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Proyecto desarrollado con fines académicos y como propuesta de digitalización para la taquería **Don Taco's Food**.

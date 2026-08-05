@@ -1,0 +1,146 @@
+<article class="pedido-card">
+  <header class="pedido-card__header">
+    <div>
+      <p class="pedido-card__eyebrow">
+        Pedido
+      </p>
+
+      <h2>{{ pedido().folio }}</h2>
+    </div>
+
+    <app-status-badge
+      [estado]="pedido().estado"
+    />
+  </header>
+
+  <div class="pedido-card__customer">
+    <div class="pedido-card__avatar">
+      {{ pedido().cliente.nombre.charAt(0) }}
+    </div>
+
+    <div>
+      <strong>{{ pedido().cliente.nombre }}</strong>
+      <span>{{ pedido().cliente.telefono }}</span>
+    </div>
+
+    <time>
+      {{ pedido().hora }}
+    </time>
+  </div>
+
+  <div class="pedido-card__divider"></div>
+
+  <section class="pedido-card__products">
+    <h3>Productos</h3>
+
+    @for (
+      detalle of pedido().detalles;
+      track detalle.id
+    ) {
+      <div class="pedido-product">
+        <div class="pedido-product__main">
+          <strong>{{ detalle.nombre }}</strong>
+
+          <span>
+            {{ detalle.cantidadPagada }}
+            pagado(s)
+          </span>
+        </div>
+
+        <div class="pedido-product__quantity">
+          <span>Preparar</span>
+          <strong>{{ detalle.cantidadPreparar }}</strong>
+        </div>
+
+        @if (detalle.promocionAplicada) {
+          <div class="pedido-product__promotion">
+            {{ detalle.promocionAplicada }}
+          </div>
+        }
+      </div>
+    }
+  </section>
+
+  @if (pedido().comentarios) {
+    <section class="pedido-card__comments">
+      <span class="pedido-card__comments-label">
+        Comentarios
+      </span>
+
+      <p>{{ pedido().comentarios }}</p>
+    </section>
+  }
+
+  <section class="pedido-card__address">
+    <span class="pedido-card__section-label">
+      Dirección
+    </span>
+
+    <p>
+      {{ pedido().direccion.calle }}
+      {{ pedido().direccion.numero }},
+      {{ pedido().direccion.colonia }}
+    </p>
+
+    <small>
+      {{ pedido().direccion.referencia }}
+    </small>
+  </section>
+
+  <div class="pedido-card__totals">
+    <div>
+      <span>Subtotal</span>
+      <strong>
+        {{ pedido().subtotal | currency:'MXN':'symbol-narrow' }}
+      </strong>
+    </div>
+
+    <div>
+      <span>Servicio</span>
+      <strong>
+        {{ pedido().cargoServicio | currency:'MXN':'symbol-narrow' }}
+      </strong>
+    </div>
+
+    <div class="pedido-card__total">
+      <span>Total</span>
+      <strong>
+        {{ pedido().total | currency:'MXN':'symbol-narrow' }}
+      </strong>
+    </div>
+  </div>
+
+  <footer class="pedido-card__actions">
+    <app-button
+      variant="secondary"
+      (buttonClick)="abrirDetalle()"
+    >
+      Ver detalle
+    </app-button>
+
+    @if (mostrarAccionesPendientes()) {
+      <app-button
+        variant="danger"
+        (buttonClick)="rechazarPedido()"
+      >
+        Rechazar
+      </app-button>
+
+      <app-button
+        variant="success"
+        (buttonClick)="aceptarPedido()"
+      >
+        Aceptar
+      </app-button>
+    }
+
+    @if (puedeAvanzar()) {
+      <app-button
+        variant="primary"
+        (buttonClick)="avanzarEstado()"
+      >
+        {{ textoSiguienteEstado() }}
+      </app-button>
+    }
+  </footer>
+</article>

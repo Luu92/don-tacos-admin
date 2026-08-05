@@ -1,0 +1,221 @@
+.orders-page {
+  display: grid;
+  gap: 24px;
+}
+
+.orders-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.orders-page__eyebrow {
+  margin: 0 0 5px;
+  color: var(--color-primary-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.orders-page__header h1 {
+  margin: 0;
+  color: var(--color-dark);
+  font-size: 1.8rem;
+}
+
+.orders-page__header p:last-child {
+  margin: 7px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.86rem;
+}
+
+.orders-page__live {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 13px;
+  border: 1px solid #d8eddc;
+  border-radius: 999px;
+  color: #23733b;
+  background: #eef9f0;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.orders-page__live span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  box-shadow: 0 0 0 4px rgba(67, 160, 71, 0.14);
+}
+
+.orders-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.summary-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  padding: 18px;
+  border: 1px solid #ececec;
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.04);
+}
+
+.summary-card::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  content: '';
+  background: #c5c5c5;
+}
+
+.summary-card--pending::before {
+  background: var(--color-primary);
+}
+
+.summary-card--preparing::before {
+  background: var(--color-warning);
+}
+
+.summary-card--ready::before {
+  background: var(--color-success);
+}
+
+.summary-card__label {
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+}
+
+.summary-card strong {
+  margin-top: 7px;
+  color: var(--color-dark);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.summary-card small {
+  margin-top: 7px;
+  color: var(--color-text-secondary);
+  font-size: 0.65rem;
+}
+
+.orders-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.orders-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.orders-filters button {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.orders-filters button:hover {
+  color: var(--color-dark);
+  background: #f3f3f3;
+}
+
+.orders-filters .orders-filter--active {
+  color: var(--color-dark);
+  background: var(--color-primary);
+  font-weight: 600;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 360px), 1fr)
+  );
+  gap: 20px;
+  align-items: stretch;
+}
+
+.orders-empty {
+  min-height: 280px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  padding: 40px;
+  border: 1px dashed #d8d8d8;
+  border-radius: var(--radius-medium);
+  text-align: center;
+  background: var(--color-surface);
+}
+
+.orders-empty__icon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #23733b;
+  background: #e5f6e9;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.orders-empty h2 {
+  margin: 16px 0 0;
+  font-size: 1rem;
+}
+
+.orders-empty p {
+  margin: 6px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 1050px) {
+  .orders-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .orders-page__header {
+    flex-direction: column;
+  }
+
+  .orders-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .orders-filters {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .orders-filters button {
+    flex-shrink: 0;
+  }
+}

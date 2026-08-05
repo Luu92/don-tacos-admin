@@ -1,0 +1,94 @@
+:host {
+  display: inline-flex;
+}
+
+.app-button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.app-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.app-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.app-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.app-button--primary {
+  color: var(--color-dark);
+  background: var(--color-primary);
+  box-shadow: 0 5px 14px rgba(245, 184, 0, 0.23);
+}
+
+.app-button--primary:hover:not(:disabled) {
+  background: #ffc529;
+}
+
+.app-button--secondary {
+  border-color: var(--color-border);
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.app-button--secondary:hover:not(:disabled) {
+  border-color: #c5c5c5;
+  background: #f8f8f8;
+}
+
+.app-button--success {
+  color: white;
+  background: var(--color-success);
+}
+
+.app-button--danger {
+  color: white;
+  background: var(--color-danger);
+}
+
+.app-button--ghost {
+  color: var(--color-text-secondary);
+  background: transparent;
+}
+
+.app-button--ghost:hover:not(:disabled) {
+  color: var(--color-dark);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.app-button--full {
+  width: 100%;
+}
+
+.app-button__spinner {
+  width: 17px;
+  height: 17px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: girar 700ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,192 @@
+:host {
+  display: block;
+}
+
+.topbar {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 30px;
+  border-bottom: 1px solid #e8e8e8;
+  background: var(--color-surface);
+}
+
+.topbar__left,
+.topbar__right,
+.topbar__profile {
+  display: flex;
+  align-items: center;
+}
+
+.topbar__left {
+  gap: 15px;
+}
+
+.topbar__right {
+  gap: 18px;
+}
+
+.topbar__menu-button,
+.topbar__notification {
+  display: grid;
+  place-items: center;
+  border: 0;
+  color: var(--color-text-secondary);
+  background: transparent;
+}
+
+.topbar__menu-button {
+  width: 42px;
+  height: 42px;
+  display: none;
+  border-radius: 10px;
+}
+
+.topbar__menu-button:hover,
+.topbar__notification:hover {
+  color: var(--color-dark);
+  background: #f3f3f3;
+}
+
+.topbar__menu-button svg,
+.topbar__notification svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.topbar__eyebrow,
+.topbar__date {
+  margin: 0;
+}
+
+.topbar__eyebrow {
+  color: var(--color-dark);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.topbar__date {
+  margin-top: 2px;
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+  text-transform: capitalize;
+}
+
+.topbar__notification {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.topbar__notification-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: var(--color-danger);
+}
+
+.topbar__profile {
+  gap: 10px;
+  padding-left: 18px;
+  border-left: 1px solid #e8e8e8;
+}
+
+.topbar__avatar {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-dark);
+  background: var(--color-primary-soft);
+  font-weight: 700;
+}
+
+.topbar__profile-data {
+  min-width: 0;
+  display: grid;
+}
+
+.topbar__profile-data strong {
+  font-size: 0.78rem;
+}
+
+.topbar__profile-data span {
+  color: var(--color-text-secondary);
+  font-size: 0.65rem;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    min-height: 70px;
+    padding: 0 20px;
+  }
+
+  .topbar__menu-button {
+    display: grid;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .topbar__profile-data {
+    display: none;
+  }
+
+  .topbar__profile {
+    padding-left: 12px;
+  }
+}
+
+.topbar__notification-count {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  min-width: 19px;
+  height: 19px;
+  display: grid;
+  place-items: center;
+  padding: 0 5px;
+  border: 2px solid white;
+  border-radius: 999px;
+  color: white;
+  background: var(--color-danger);
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.topbar__notification--active {
+  color: var(--color-danger);
+  background: #fff0ef;
+  animation: notification-ring 700ms ease-in-out 3;
+}
+
+@keyframes notification-ring {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(9deg);
+  }
+
+  75% {
+    transform: rotate(-9deg);
+  }
+}
