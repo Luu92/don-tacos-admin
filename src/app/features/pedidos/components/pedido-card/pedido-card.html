@@ -8,9 +8,7 @@
       <h2>{{ pedido().folio }}</h2>
     </div>
 
-    <app-status-badge
-      [estado]="pedido().estado"
-    />
+    <app-status-badge [estado]="pedido().estado" />
   </header>
 
   <div class="pedido-card__customer">
@@ -34,41 +32,41 @@
     <h3>Productos</h3>
 
     @for (
-      detalle of pedido().detalles;
-      track detalle.id
+    detalle of pedido().detalles;
+    track detalle.id
     ) {
-      <div class="pedido-product">
-        <div class="pedido-product__main">
-          <strong>{{ detalle.nombre }}</strong>
+    <div class="pedido-product">
+      <div class="pedido-product__main">
+        <strong>{{ detalle.nombre }}</strong>
 
-          <span>
-            {{ detalle.cantidadPagada }}
-            pagado(s)
-          </span>
-        </div>
-
-        <div class="pedido-product__quantity">
-          <span>Preparar</span>
-          <strong>{{ detalle.cantidadPreparar }}</strong>
-        </div>
-
-        @if (detalle.promocionAplicada) {
-          <div class="pedido-product__promotion">
-            {{ detalle.promocionAplicada }}
-          </div>
-        }
+        <span>
+          {{ detalle.cantidadPagada }}
+          pagado(s)
+        </span>
       </div>
+
+      <div class="pedido-product__quantity">
+        <span>Preparar</span>
+        <strong>{{ detalle.cantidadPreparar }}</strong>
+      </div>
+
+      @if (detalle.promocionAplicada) {
+      <div class="pedido-product__promotion">
+        {{ detalle.promocionAplicada }}
+      </div>
+      }
+    </div>
     }
   </section>
 
   @if (pedido().comentarios) {
-    <section class="pedido-card__comments">
-      <span class="pedido-card__comments-label">
-        Comentarios
-      </span>
+  <section class="pedido-card__comments">
+    <span class="pedido-card__comments-label">
+      Comentarios
+    </span>
 
-      <p>{{ pedido().comentarios }}</p>
-    </section>
+    <p>{{ pedido().comentarios }}</p>
+  </section>
   }
 
   <section class="pedido-card__address">
@@ -111,36 +109,51 @@
   </div>
 
   <footer class="pedido-card__actions">
-    <app-button
-      variant="secondary"
-      (buttonClick)="abrirDetalle()"
-    >
+    <app-button variant="secondary" (buttonClick)="abrirDetalle()">
       Ver detalle
     </app-button>
 
-    @if (mostrarAccionesPendientes()) {
-      <app-button
-        variant="danger"
-        (buttonClick)="rechazarPedido()"
-      >
-        Rechazar
-      </app-button>
+    @if (pedido().estado === 'ENVIADO') {
+    <div class="pedido-card__waiting-confirmation">
+      <span class="pedido-card__waiting-icon">
+        ✓
+      </span>
 
-      <app-button
-        variant="success"
-        (buttonClick)="aceptarPedido()"
-      >
-        Aceptar
-      </app-button>
+      <div>
+        <strong>Pedido enviado</strong>
+
+        <p>
+          Esperando confirmación de entrega
+          por parte del comensal.
+        </p>
+      </div>
+    </div>
+    }
+
+    @if (mostrarAccionesPendientes()) {
+    <app-button variant="danger" (buttonClick)="rechazarPedido()">
+      Rechazar
+    </app-button>
+
+    <app-button variant="success" (buttonClick)="aceptarPedido()">
+      Aceptar
+    </app-button>
     }
 
     @if (puedeAvanzar()) {
-      <app-button
-        variant="primary"
-        (buttonClick)="avanzarEstado()"
-      >
-        {{ textoSiguienteEstado() }}
-      </app-button>
+    <app-button variant="primary" (buttonClick)="avanzarEstado()">
+      {{ textoSiguienteEstado() }}
+    </app-button>
     }
   </footer>
+  @if (pedido().estado === 'RECHAZADO') {
+  <section class="pedido-card__rejected">
+    <strong>Pedido rechazado</strong>
+
+    <p>
+      El comensal será informado de que la orden
+      no pudo ser aceptada.
+    </p>
+  </section>
+}
 </article>

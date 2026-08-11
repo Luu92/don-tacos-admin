@@ -7,17 +7,26 @@ import {
 import { EstadoPedido } from '../../../../core/models/estado-pedido';
 import { PedidoCard } from '../../components/pedido-card/pedido-card';
 import { PedidoService } from '../../services/pedido';
+import { Pedido } from '../../../../core/models/pedido';
+import { PedidoDetalle } from '../../components/pedido-detalle/pedido-detalle';
+import { ConfirmDialog } from '../../../../shared/components/confirm-dialog/confirm-dialog';
 
 type FiltroPedido = 'TODOS' | EstadoPedido;
 
 @Component({
   selector: 'app-lista-pedidos',
-  imports: [PedidoCard],
+  imports: [PedidoCard, PedidoDetalle, ConfirmDialog],
   templateUrl: './lista-pedidos.html',
   styleUrl: './lista-pedidos.css',
 })
 export class ListaPedidos {
   private readonly pedidoService = inject(PedidoService);
+
+  protected readonly pedidoSeleccionado =
+    signal<Pedido | null>(null);
+
+  protected readonly pedidoPendienteRechazo =
+    signal<number | null>(null);
 
   protected readonly filtroActivo =
     signal<FiltroPedido>('TODOS');
@@ -56,8 +65,23 @@ export class ListaPedidos {
     this.pedidoService.aceptarPedido(idPedido);
   }
 
-  protected rechazarPedido(idPedido: number): void {
+  protected solicitarRechazo(idPedido: number): void {
+    this.pedidoPendienteRechazo.set(idPedido);
+  }
+
+  protected confirmarRechazo(): void {
+    const idPedido = this.pedidoPendienteRechazo();
+
+    if (idPedido === null) {
+      return;
+    }
+
     this.pedidoService.rechazarPedido(idPedido);
+    this.pedidoPendienteRechazo.set(null);
+  }
+
+  protected cancelarRechazo(): void {
+    this.pedidoPendienteRechazo.set(null);
   }
 
   protected avanzarEstado(idPedido: number): void {
@@ -75,7 +99,6 @@ export class ListaPedidos {
       ACEPTADO: 'EN_PREPARACION',
       EN_PREPARACION: 'LISTO',
       LISTO: 'ENVIADO',
-      ENVIADO: 'ENTREGADO',
     };
 
     const nuevoEstado =
@@ -92,9 +115,20 @@ export class ListaPedidos {
   }
 
   protected verDetalle(idPedido: number): void {
-    console.log(
-      'Abrir detalle del pedido:',
-      idPedido,
+    const pedido = this.pedidos().find(
+      (pedidoActual) =>
+        pedidoActual.id === idPedido,
     );
+
+    if (!pedido) {
+      return;
+    }
+
+    this.pedidoSeleccionado.set(pedido);
   }
+
+  protected cerrarDetalle(): void {
+    this.pedidoSeleccionado.set(null);
+  }
+
 }

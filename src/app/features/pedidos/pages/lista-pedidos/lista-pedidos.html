@@ -62,81 +62,84 @@
   </section>
 
   <section class="orders-toolbar">
-    <div
-      class="orders-filters"
-      role="group"
-      aria-label="Filtrar pedidos por estado"
-    >
-      <button
-        type="button"
-        [class.orders-filter--active]="filtroActivo() === 'TODOS'"
-        (click)="cambiarFiltro('TODOS')"
-      >
+    <div class="orders-filters" role="group" aria-label="Filtrar pedidos por estado">
+      <button type="button" [class.orders-filter--active]="filtroActivo() === 'TODOS'" (click)="cambiarFiltro('TODOS')">
         Todos
       </button>
 
-      <button
-        type="button"
-        [class.orders-filter--active]="filtroActivo() === 'PENDIENTE'"
-        (click)="cambiarFiltro('PENDIENTE')"
-      >
+      <button type="button" [class.orders-filter--active]="filtroActivo() === 'PENDIENTE'"
+        (click)="cambiarFiltro('PENDIENTE')">
         Pendientes
       </button>
 
-      <button
-        type="button"
-        [class.orders-filter--active]="
+      <button type="button" [class.orders-filter--active]="
           filtroActivo() === 'EN_PREPARACION'
-        "
-        (click)="cambiarFiltro('EN_PREPARACION')"
-      >
+        " (click)="cambiarFiltro('EN_PREPARACION')">
         Preparando
       </button>
 
-      <button
-        type="button"
-        [class.orders-filter--active]="filtroActivo() === 'LISTO'"
-        (click)="cambiarFiltro('LISTO')"
-      >
+      <button type="button" [class.orders-filter--active]="filtroActivo() === 'LISTO'" (click)="cambiarFiltro('LISTO')">
         Listos
       </button>
 
-      <button
-        type="button"
-        [class.orders-filter--active]="filtroActivo() === 'RECHAZADO'"
-        (click)="cambiarFiltro('RECHAZADO')"
-      >
+      <button type="button" [class.orders-filter--active]="filtroActivo() === 'RECHAZADO'"
+        (click)="cambiarFiltro('RECHAZADO')">
         Rechazados
       </button>
+      <button type="button" [class.orders-filter--active]="
+    filtroActivo() === 'ENVIADO'
+  " (click)="cambiarFiltro('ENVIADO')">
+        Enviados
+      </button>
+
+      <button type="button" [class.orders-filter--active]="
+    filtroActivo() === 'ENTREGADO'
+  " (click)="cambiarFiltro('ENTREGADO')">
+        Entregados
+      </button>
+
     </div>
   </section>
 
   @if (pedidosFiltrados().length > 0) {
-    <div class="orders-grid">
-      @for (
-        pedido of pedidosFiltrados();
-        track pedido.id
-      ) {
-        <app-pedido-card
-          [pedido]="pedido"
-          (aceptar)="aceptarPedido($event)"
-          (rechazar)="rechazarPedido($event)"
-          (siguienteEstado)="avanzarEstado($event)"
-          (verDetalle)="verDetalle($event)"
-        />
-      }
-    </div>
+  <div class="orders-grid">
+    @for (
+    pedido of pedidosFiltrados();
+    track pedido.id
+    ) {
+    <app-pedido-card [pedido]="pedido" (aceptar)="aceptarPedido($event)" (rechazar)="solicitarRechazo($event)"
+      (siguienteEstado)="avanzarEstado($event)" (verDetalle)="verDetalle($event)" />
+    }
+  </div>
   } @else {
-    <section class="orders-empty">
-      <div class="orders-empty__icon">
-        ✓
-      </div>
+  <section class="orders-empty">
+    <div class="orders-empty__icon">
+      ✓
+    </div>
 
-      <h2>No hay pedidos en este estado</h2>
+    <h2>No hay pedidos en este estado</h2>
 
-      <p>
-        Cambia el filtro para consultar otras órdenes.
-      </p>
-    </section>
+    <p>
+      Cambia el filtro para consultar otras órdenes.
+    </p>
+  </section>
   }
 </section>
+@if (pedidoSeleccionado(); as pedido) {
+  <app-pedido-detalle
+    [pedido]="pedido"
+    (cerrar)="cerrarDetalle()"
+  />
+}
+
+@if (pedidoPendienteRechazo() !== null) {
+  <app-confirm-dialog
+    titulo="Rechazar pedido"
+    mensaje="¿Estás seguro de que deseas rechazar este pedido? Esta acción informará al comensal que la orden no pudo ser aceptada."
+    textoConfirmar="Sí, rechazar"
+    textoCancelar="Cancelar"
+    variantConfirmar="danger"
+    (confirmar)="confirmarRechazo()"
+    (cancelar)="cancelarRechazo()"
+  />
+}

@@ -14,7 +14,7 @@ export class PedidoService {
   private readonly pedidosSignal = signal<Pedido[]>([
     {
       id: 1,
-      folio: 'DT-1001',
+      folio: '1001',
       cliente: {
         nombre: 'Luis Molina',
         telefono: '5534439752',
@@ -55,7 +55,7 @@ export class PedidoService {
     },
     {
       id: 2,
-      folio: 'DT-1002',
+      folio: '1002',
       cliente: {
         nombre: 'Mariana López',
         telefono: '5650314435',
@@ -104,7 +104,7 @@ export class PedidoService {
     },
     {
       id: 3,
-      folio: 'DT-1003',
+      folio: '1003',
       cliente: {
         nombre: 'Carlos Pérez',
         telefono: '5512345678',
@@ -135,7 +135,7 @@ export class PedidoService {
     },
     {
       id: 4,
-      folio: 'DT-1004',
+      folio: '1004',
       cliente: {
         nombre: 'Fernanda Ruiz',
         telefono: '5587654321',
@@ -174,6 +174,48 @@ export class PedidoService {
       cargoServicio: 20,
       total: 250,
     },
+    {
+      id: 6,
+      folio: '1007',
+      cliente: {
+        nombre: 'Fernando Ramirez',
+        telefono: '5587654321',
+      },
+      direccion: {
+        calle: 'Periodismo',
+        numero: '147',
+        colonia: 'Nueva Valladolid',
+        referencia: 'Entre la papelería y la panadería',
+      },
+      fecha: '2026-08-05',
+      hora: '15:56',
+      estado: 'ENTREGADO',
+      detalles: [
+        {
+          id: 7,
+          idAlimento: 1,
+          nombre: 'Tacos al Pastor',
+          precioUnitario: 14,
+          cantidadPagada: 10,
+          cantidadPreparar: 20,
+          promocionAplicada: 'Promoción 2x1',
+          subtotal: 140,
+        },
+        {
+          id: 8,
+          idAlimento: 5,
+          nombre: 'Torta de Suadero',
+          precioUnitario: 90,
+          cantidadPagada: 1,
+          cantidadPreparar: 1,
+          subtotal: 90,
+        },
+      ],
+      subtotal: 230,
+      cargoServicio: 20,
+      total: 250,
+    },
+
   ]);
 
   readonly pedidos = this.pedidosSignal.asReadonly();
@@ -233,7 +275,7 @@ export class PedidoService {
     window.setTimeout(() => {
       const nuevoPedido: Pedido = {
         id: 5,
-        folio: 'DT-1005',
+        folio: '1005',
         cliente: {
           nombre: 'Daniela Torres',
           telefono: '443 654 3287',

@@ -51,7 +51,6 @@ export class PedidoCard {
       'ACEPTADO',
       'EN_PREPARACION',
       'LISTO',
-      'ENVIADO',
     ].includes(this.pedido().estado);
   }
 
@@ -60,7 +59,6 @@ export class PedidoCard {
       ACEPTADO: 'Iniciar preparación',
       EN_PREPARACION: 'Marcar como listo',
       LISTO: 'Marcar como enviado',
-      ENVIADO: 'Marcar como entregado',
     };
 
     return textos[this.pedido().estado] ?? 'Cambiar estado';

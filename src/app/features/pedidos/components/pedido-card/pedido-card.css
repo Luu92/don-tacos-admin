@@ -227,6 +227,41 @@
   padding-top: 20px;
 }
 
+.pedido-card__waiting-confirmation {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 18px;
+  padding: 13px 14px;
+  border: 1px solid #dce5ff;
+  border-radius: 10px;
+  color: #3554a4;
+  background: #f1f4ff;
+}
+
+.pedido-card__waiting-icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: white;
+  background: #3554a4;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.pedido-card__waiting-confirmation strong {
+  font-size: 0.76rem;
+}
+
+.pedido-card__waiting-confirmation p {
+  margin: 2px 0 0;
+  font-size: 0.67rem;
+  line-height: 1.4;
+}
+
 @media (max-width: 520px) {
   .pedido-card {
     padding: 18px;
@@ -240,4 +275,23 @@
   .pedido-card__actions app-button {
     width: 100%;
   }
+}
+
+.pedido-card__rejected {
+  margin-top: 18px;
+  padding: 13px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #b42318;
+  background: #fff1f0;
+}
+
+.pedido-card__rejected strong {
+  font-size: 0.76rem;
+}
+
+.pedido-card__rejected p {
+  margin: 3px 0 0;
+  font-size: 0.68rem;
+  line-height: 1.5;
 }

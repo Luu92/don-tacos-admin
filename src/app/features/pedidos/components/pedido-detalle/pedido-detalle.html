@@ -1,0 +1,229 @@
+<div
+  class="detalle-overlay"
+  (click)="cerrarDetalle()"
+></div>
+
+<aside
+  class="detalle-panel"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Detalle del pedido"
+>
+  <header class="detalle-header">
+    <div>
+      <p class="detalle-eyebrow">
+        Detalle del pedido
+      </p>
+
+      <div class="detalle-title">
+        <h2>{{ pedido().folio }}</h2>
+
+        <app-status-badge
+          [estado]="pedido().estado"
+        />
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="detalle-close"
+      aria-label="Cerrar detalle"
+      (click)="cerrarDetalle()"
+    >
+      <svg viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+  </header>
+
+  <div class="detalle-content">
+
+    <!-- CLIENTE -->
+    <section class="detalle-section">
+      <h3>Cliente</h3>
+
+      <div class="cliente-card">
+        <div class="cliente-avatar">
+          {{ pedido().cliente.nombre.charAt(0) }}
+        </div>
+
+        <div>
+          <strong>
+            {{ pedido().cliente.nombre }}
+          </strong>
+
+          <span>
+            {{ pedido().cliente.telefono }}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PEDIDO -->
+    <section class="detalle-section">
+      <div class="detalle-section__header">
+        <h3>Productos</h3>
+
+        <span>
+          {{ pedido().hora }}
+        </span>
+      </div>
+
+      <div class="detalle-productos">
+        @for (
+          detalle of pedido().detalles;
+          track detalle.id
+        ) {
+          <article class="detalle-producto">
+            <div class="detalle-producto__info">
+              <strong>
+                {{ detalle.nombre }}
+              </strong>
+
+              <span>
+                {{ detalle.cantidadPagada }}
+                ×
+                {{
+                  detalle.precioUnitario
+                    | currency:'MXN':'symbol-narrow'
+                }}
+              </span>
+            </div>
+
+            <div class="detalle-producto__preparar">
+              <span>Preparar</span>
+              <strong>
+                {{ detalle.cantidadPreparar }}
+              </strong>
+            </div>
+
+            @if (detalle.promocionAplicada) {
+              <div class="detalle-producto__promo">
+                {{ detalle.promocionAplicada }}
+              </div>
+            }
+
+            <div class="detalle-producto__subtotal">
+              {{
+                detalle.subtotal
+                  | currency:'MXN':'symbol-narrow'
+              }}
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+
+    <!-- COMENTARIOS -->
+    @if (pedido().comentarios) {
+      <section class="detalle-section">
+        <h3>Comentarios del comensal</h3>
+
+        <div class="detalle-comments">
+          <span aria-hidden="true">!</span>
+
+          <p>
+            {{ pedido().comentarios }}
+          </p>
+        </div>
+      </section>
+    }
+
+    <!-- DIRECCIÓN -->
+    <section class="detalle-section">
+      <h3>Dirección de entrega</h3>
+
+      <div class="detalle-address">
+        <div class="detalle-address__icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"
+            ></path>
+            <circle cx="12" cy="10" r="2.5"></circle>
+          </svg>
+        </div>
+
+        <div>
+          <strong>
+            {{ pedido().direccion.calle }}
+            {{ pedido().direccion.numero }}
+          </strong>
+
+          <span>
+            {{ pedido().direccion.colonia }}
+          </span>
+
+          @if (pedido().direccion.referencia) {
+            <small>
+              Referencia:
+              {{ pedido().direccion.referencia }}
+            </small>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="detalle-section">
+      <h3>Resumen</h3>
+
+      <div class="detalle-totales">
+        <div>
+          <span>Subtotal</span>
+
+          <strong>
+            {{
+              pedido().subtotal
+                | currency:'MXN':'symbol-narrow'
+            }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Servicio</span>
+
+          <strong>
+            {{
+              pedido().cargoServicio
+                | currency:'MXN':'symbol-narrow'
+            }}
+          </strong>
+        </div>
+
+        <div class="detalle-total">
+          <span>Total</span>
+
+          <strong>
+            {{
+              pedido().total
+                | currency:'MXN':'symbol-narrow'
+            }}
+          </strong>
+        </div>
+      </div>
+    </section>
+
+    @if (pedido().estado === 'ENVIADO') {
+      <section class="detalle-waiting">
+        <strong>
+          Pedido enviado
+        </strong>
+
+        <p>
+          La entrega debe ser confirmada por el
+          comensal desde la aplicación.
+        </p>
+      </section>
+    }
+  </div>
+
+  <footer class="detalle-footer">
+    <app-button
+      variant="secondary"
+      (buttonClick)="cerrarDetalle()"
+    >
+      Cerrar
+    </app-button>
+  </footer>
+
+</aside>

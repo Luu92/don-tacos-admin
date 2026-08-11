@@ -1,0 +1,371 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: block;
+}
+
+.detalle-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  animation: overlay-in 180ms ease;
+}
+
+.detalle-panel {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(520px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.15);
+  animation: panel-in 220ms ease;
+}
+
+.detalle-header {
+  min-height: 95px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 26px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.detalle-eyebrow {
+  margin: 0 0 5px;
+  color: var(--color-text-secondary);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.detalle-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detalle-title h2 {
+  margin: 0;
+  color: var(--color-dark);
+  font-size: 1.25rem;
+}
+
+.detalle-close {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 10px;
+  color: var(--color-text-secondary);
+  background: transparent;
+}
+
+.detalle-close:hover {
+  color: var(--color-dark);
+  background: #f2f2f2;
+}
+
+.detalle-close svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.detalle-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 26px;
+}
+
+.detalle-section {
+  padding: 0 0 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.detalle-section:last-child {
+  border-bottom: 0;
+}
+
+.detalle-section h3 {
+  margin: 0 0 14px;
+  color: var(--color-dark);
+  font-size: 0.85rem;
+}
+
+.detalle-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detalle-section__header span {
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+}
+
+.cliente-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cliente-avatar {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-dark);
+  background: var(--color-primary-soft);
+  font-weight: 700;
+}
+
+.cliente-card > div:last-child {
+  display: grid;
+}
+
+.cliente-card strong {
+  font-size: 0.84rem;
+}
+
+.cliente-card span {
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+}
+
+.detalle-productos {
+  display: grid;
+  gap: 10px;
+}
+
+.detalle-producto {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+  gap: 8px 16px;
+  padding: 14px;
+  border: 1px solid #ececec;
+  border-radius: 11px;
+  background: #fafafa;
+}
+
+.detalle-producto__info {
+  display: grid;
+}
+
+.detalle-producto__info strong {
+  font-size: 0.78rem;
+}
+
+.detalle-producto__info span {
+  color: var(--color-text-secondary);
+  font-size: 0.68rem;
+}
+
+.detalle-producto__preparar {
+  display: grid;
+  justify-items: end;
+}
+
+.detalle-producto__preparar span {
+  color: var(--color-text-secondary);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+}
+
+.detalle-producto__preparar strong {
+  color: var(--color-primary-dark);
+  font-size: 1.2rem;
+}
+
+.detalle-producto__promo {
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: #8a6100;
+  background: var(--color-primary-soft);
+  font-size: 0.62rem;
+  font-weight: 600;
+}
+
+.detalle-producto__subtotal {
+  align-self: center;
+  justify-self: end;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.detalle-comments {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  border-left: 3px solid var(--color-warning);
+  border-radius: 9px;
+  background: #fff8ed;
+}
+
+.detalle-comments span {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: white;
+  background: var(--color-warning);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.detalle-comments p {
+  margin: 1px 0 0;
+  color: var(--color-text);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.detalle-address {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #f7f7f7;
+}
+
+.detalle-address__icon {
+  width: 37px;
+  height: 37px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  color: var(--color-primary-dark);
+  background: var(--color-primary-soft);
+}
+
+.detalle-address__icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.detalle-address > div:last-child {
+  display: grid;
+}
+
+.detalle-address strong {
+  font-size: 0.78rem;
+}
+
+.detalle-address span,
+.detalle-address small {
+  color: var(--color-text-secondary);
+  font-size: 0.68rem;
+}
+
+.detalle-address small {
+  margin-top: 5px;
+}
+
+.detalle-totales {
+  display: grid;
+  gap: 9px;
+}
+
+.detalle-totales > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text-secondary);
+  font-size: 0.76rem;
+}
+
+.detalle-totales strong {
+  color: var(--color-text);
+}
+
+.detalle-total {
+  margin-top: 5px;
+  padding-top: 13px;
+  border-top: 1px dashed #d8d8d8;
+}
+
+.detalle-total span,
+.detalle-total strong {
+  color: var(--color-dark);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.detalle-waiting {
+  padding: 14px;
+  border: 1px solid #dce5ff;
+  border-radius: 10px;
+  color: #3554a4;
+  background: #f1f4ff;
+}
+
+.detalle-waiting strong {
+  font-size: 0.78rem;
+}
+
+.detalle-waiting p {
+  margin: 4px 0 0;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.detalle-footer {
+  padding: 18px 26px;
+  border-top: 1px solid #eeeeee;
+  background: var(--color-surface);
+}
+
+.detalle-footer app-button {
+  width: 100%;
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 560px) {
+  .detalle-panel {
+    width: 100%;
+  }
+
+  .detalle-header,
+  .detalle-content,
+  .detalle-footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
