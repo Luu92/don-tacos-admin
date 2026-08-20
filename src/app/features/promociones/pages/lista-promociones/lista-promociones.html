@@ -174,3 +174,18 @@
     }
 
 </section>
+
+@if (formularioAbierto()) {
+  <app-promocion-form
+    [promocion]="promocionSeleccionada()"
+    [alimentos]="alimentos()"
+    (guardar)="guardarPromocion($event)"
+    (cerrar)="cerrarFormulario()"
+  />
+}
+
+@if (mensajeToast(); as mensaje) {
+  <app-toast
+    [mensaje]="mensaje"
+  />
+}

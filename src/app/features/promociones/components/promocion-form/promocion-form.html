@@ -1,1 +1,247 @@
-<p>promocion-form works!</p>
+<div
+  class="form-overlay"
+  (click)="cerrarFormulario()"
+></div>
+
+<aside
+  class="promocion-form-panel"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Formulario de promoción"
+>
+  <header class="promocion-form-header">
+
+    <div>
+      <p class="promocion-form-eyebrow">
+        Promociones
+      </p>
+
+      <h2>
+        {{
+          esEdicion()
+            ? 'Editar promoción'
+            : 'Nueva promoción'
+        }}
+      </h2>
+    </div>
+
+    <button
+      type="button"
+      class="promocion-form-close"
+      aria-label="Cerrar formulario"
+      (click)="cerrarFormulario()"
+    >
+      <svg viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+
+  </header>
+
+  <form
+    class="promocion-form"
+    [formGroup]="formulario"
+    (ngSubmit)="guardarPromocion()"
+  >
+
+    <div class="form-field">
+      <label for="nombre">
+        Nombre de la promoción
+      </label>
+
+      <input
+        id="nombre"
+        type="text"
+        formControlName="nombre"
+        placeholder="Ej. En familia"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="descripcion">
+        Descripción
+      </label>
+
+      <textarea
+        id="descripcion"
+        rows="4"
+        formControlName="descripcion"
+        placeholder="Describe brevemente la promoción"
+      ></textarea>
+    </div>
+
+    <section class="promocion-alimentos">
+
+      <div class="promocion-alimentos__header">
+        <div>
+          <h3>
+            Alimentos incluidos
+          </h3>
+
+          <p>
+            Selecciona los alimentos y la cantidad
+            que integran la promoción.
+          </p>
+        </div>
+
+        <app-button
+          variant="secondary"
+          type="button"
+          (buttonClick)="agregarAlimento()"
+        >
+          + Agregar alimento
+        </app-button>
+      </div>
+
+      <div
+        class="promocion-alimentos__list"
+        formArrayName="alimentos"
+      >
+
+        @for (
+          control of alimentosForm.controls;
+          track $index;
+          let i = $index
+        ) {
+
+          <div
+            class="promocion-alimento-row"
+            [formGroupName]="i"
+          >
+
+            <div class="form-field">
+              <label>
+                Alimento
+              </label>
+
+              <select
+                formControlName="idAlimento"
+              >
+                <option [ngValue]="0">
+                  Selecciona
+                </option>
+
+                @for (
+                  alimento of alimentos();
+                  track alimento.id
+                ) {
+                  <option
+                    [ngValue]="alimento.id"
+                  >
+                    {{ alimento.nombre }}
+                  </option>
+                }
+              </select>
+            </div>
+
+            <div class="form-field cantidad-field">
+              <label>
+                Cantidad
+              </label>
+
+              <input
+                type="number"
+                min="1"
+                formControlName="cantidad"
+              />
+            </div>
+
+            <button
+              type="button"
+              class="remove-food"
+              aria-label="Quitar alimento"
+              [disabled]="
+                alimentosForm.length === 1
+              "
+              (click)="quitarAlimento(i)"
+            >
+              ×
+            </button>
+
+          </div>
+        }
+
+      </div>
+
+    </section>
+
+    <div class="form-field">
+      <label for="precio">
+        Precio de la promoción
+      </label>
+
+      <div class="precio-input">
+        <span>$</span>
+
+        <input
+          id="precio"
+          type="number"
+          min="1"
+          step="0.01"
+          formControlName="precio"
+        />
+      </div>
+
+      <small class="form-help">
+        El precio es definido directamente
+        por la taquería.
+      </small>
+    </div>
+
+    <label class="estado-field">
+      <div>
+        <strong>
+          Promoción activa
+        </strong>
+
+        <span>
+          Si está activa podrá mostrarse
+          a los comensales.
+        </span>
+      </div>
+
+      <input
+        type="checkbox"
+        formControlName="activa"
+      />
+    </label>
+
+    @if (esEdicion()) {
+      <div class="fecha-info">
+        <span>
+          Fecha de creación
+        </span>
+
+        <strong>
+          {{
+            promocion()?.fecha?.toLocaleDateString('es-MX')
+          }}
+        </strong>
+      </div>
+    }
+
+    <footer class="promocion-form-actions">
+
+      <app-button
+        variant="secondary"
+        type="button"
+        (buttonClick)="cerrarFormulario()"
+      >
+        Cancelar
+      </app-button>
+
+      <app-button
+        variant="primary"
+        type="submit"
+      >
+        {{
+          esEdicion()
+            ? 'Guardar cambios'
+            : 'Crear promoción'
+        }}
+      </app-button>
+
+    </footer>
+
+  </form>
+</aside>

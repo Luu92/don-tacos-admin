@@ -1,0 +1,303 @@
+:host {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: block;
+}
+
+.form-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.48);
+}
+
+.promocion-form-panel {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(580px, 100%);
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.15);
+    animation: panel-in 220ms ease;
+}
+
+.promocion-form-header {
+    min-height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 26px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.promocion-form-eyebrow {
+    margin: 0 0 5px;
+    color: var(--color-primary-dark);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.promocion-form-header h2 {
+    margin: 0;
+    color: var(--color-dark);
+    font-size: 1.2rem;
+}
+
+.promocion-form-close {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 10px;
+    color: var(--color-text-secondary);
+    background: transparent;
+}
+
+.promocion-form-close:hover {
+    color: var(--color-dark);
+    background: #f2f2f2;
+}
+
+.promocion-form-close svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+.promocion-form {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    align-content: start;
+    gap: 22px;
+    padding: 26px;
+}
+
+.form-field {
+    display: grid;
+    gap: 8px;
+}
+
+.form-field label {
+    color: var(--color-dark);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    outline: 0;
+    color: var(--color-text);
+    background: var(--color-surface);
+    font: inherit;
+    font-size: 0.78rem;
+}
+
+.form-field input,
+.form-field select {
+    min-height: 46px;
+    padding: 0 13px;
+}
+
+.form-field textarea {
+    padding: 13px;
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-input);
+}
+
+.promocion-alimentos {
+    display: grid;
+    gap: 16px;
+    padding: 18px;
+    border: 1px solid #e9e9e9;
+    border-radius: 12px;
+    background: #fafafa;
+}
+
+.promocion-alimentos__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.promocion-alimentos__header h3 {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.promocion-alimentos__header p {
+    margin: 5px 0 0;
+    color: var(--color-text-secondary);
+    font-size: 0.68rem;
+}
+
+.promocion-alimentos__list {
+    display: grid;
+    gap: 12px;
+}
+
+.promocion-alimento-row {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr) 100px 38px;
+    gap: 10px;
+    align-items: end;
+}
+
+.remove-food {
+    width: 38px;
+    height: 46px;
+    border: 0;
+    border-radius: 9px;
+    color: var(--color-danger);
+    background: #fff0ef;
+    font-size: 1.2rem;
+}
+
+.remove-food:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+}
+
+.precio-input {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+}
+
+.precio-input span {
+    padding: 0 12px;
+    color: var(--color-text-secondary);
+}
+
+.precio-input input {
+    border: 0;
+    box-shadow: none;
+}
+
+.form-help {
+    color: var(--color-text-secondary);
+    font-size: 0.66rem;
+}
+
+.estado-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f7f7f7;
+}
+
+.estado-field>div {
+    display: grid;
+}
+
+.estado-field strong {
+    font-size: 0.76rem;
+}
+
+.estado-field span {
+    margin-top: 3px;
+    color: var(--color-text-secondary);
+    font-size: 0.66rem;
+}
+
+.estado-field input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+}
+
+.fecha-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 14px;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 9px;
+    background: var(--color-primary-soft);
+}
+
+.fecha-info span {
+    font-size: 0.7rem;
+}
+
+.fecha-info strong {
+    color: var(--color-primary-dark);
+    font-size: 0.75rem;
+}
+
+.promocion-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+}
+
+@keyframes panel-in {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 560px) {
+    .promocion-form-panel {
+        width: 100%;
+    }
+
+    .promocion-form-header,
+    .promocion-form {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .promocion-alimentos__header {
+        flex-direction: column;
+    }
+
+    .promocion-alimento-row {
+        grid-template-columns: 1fr 90px;
+    }
+
+    .remove-food {
+        grid-column: 1 / -1;
+        width: 100%;
+        height: 38px;
+    }
+
+    .promocion-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .promocion-form-actions app-button {
+        width: 100%;
+    }
+}

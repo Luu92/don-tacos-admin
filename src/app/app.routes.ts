@@ -32,15 +32,6 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'dashboard',
-        loadComponent: () =>
-          import(
-            './features/dashboard/pages/dashboard/dashboard'
-          ).then(
-            (component) => component.Dashboard,
-          ),
-      },
-      {
         path: 'alimentos',
         loadComponent: () =>
           import(

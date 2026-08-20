@@ -11,7 +11,6 @@ interface MenuItem {
   ruta: string;
   icono:
     | 'pedidos'
-    | 'dashboard'
     | 'alimentos'
     | 'categorias'
     | 'promociones';
@@ -40,11 +39,6 @@ export class Sidebar {
       etiqueta: 'Pedidos',
       ruta: '/admin/pedidos',
       icono: 'pedidos',
-    },
-    {
-      etiqueta: 'Dashboard',
-      ruta: '/admin/dashboard',
-      icono: 'dashboard',
     },
     {
       etiqueta: 'Carta',
