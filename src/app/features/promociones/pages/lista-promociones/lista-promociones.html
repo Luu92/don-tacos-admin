@@ -1,2 +1,176 @@
-<h1>Dashboard</h1>
-<p>Esta funcionalidad se construirá posteriormente.</p>
+<section class="promociones-page">
+
+    <header class="promociones-header">
+        <div>
+            <p class="promociones-eyebrow">
+                Administración
+            </p>
+
+            <h1>Promociones</h1>
+
+            <p>
+                Gestiona las promociones disponibles
+                para los comensales.
+            </p>
+        </div>
+
+        <app-button variant="primary" (buttonClick)="nuevaPromocion()">
+            + Nueva promoción
+        </app-button>
+    </header>
+
+    <nav class="promociones-filters" aria-label="Filtrar promociones">
+        <button type="button" [class.promociones-filter--active]="
+        filtroSeleccionado() === 'TODAS'
+      " (click)="seleccionarFiltro('TODAS')">
+            Todas
+        </button>
+
+        <button type="button" [class.promociones-filter--active]="
+        filtroSeleccionado() === 'ACTIVAS'
+      " (click)="seleccionarFiltro('ACTIVAS')">
+            Activas
+        </button>
+
+        <button type="button" [class.promociones-filter--active]="
+        filtroSeleccionado() === 'INACTIVAS'
+      " (click)="seleccionarFiltro('INACTIVAS')">
+            Inactivas
+        </button>
+    </nav>
+
+    @if (promocionesFiltradas().length > 0) {
+
+    <section class="promociones-grid">
+
+        @for (
+        promocion of promocionesFiltradas();
+        track promocion.id
+        ) {
+
+        <article class="promocion-card">
+
+            <header class="promocion-card__header">
+
+                <div>
+                    <span class="promocion-card__date">
+                        Creada el
+                        {{
+                        promocion.fecha
+                        | date:'dd/MM/yyyy'
+                        }}
+                    </span>
+
+                    <h2>
+                        {{ promocion.nombre }}
+                    </h2>
+                </div>
+
+                <span class="promocion-status" [class.promocion-status--active]="
+                promocion.activa
+              " [class.promocion-status--inactive]="
+                !promocion.activa
+              ">
+                    {{
+                    promocion.activa
+                    ? 'Activa'
+                    : 'Inactiva'
+                    }}
+                </span>
+
+            </header>
+
+            <p class="promocion-description">
+                {{ promocion.descripcion }}
+            </p>
+
+            <section class="promocion-foods">
+
+                <span class="promocion-foods__label">
+                    Incluye
+                </span>
+
+                @for (
+                detalle of promocion.alimentos;
+                track detalle.idAlimento
+                ) {
+
+                <div class="promocion-food">
+                    <strong>
+                        {{ detalle.cantidad }} ×
+                    </strong>
+
+                    <span>
+                        {{
+                        obtenerNombreAlimento(
+                        detalle.idAlimento
+                        )
+                        }}
+                    </span>
+                </div>
+
+                }
+
+            </section>
+
+            <div class="promocion-price">
+                <span>
+                    Precio promoción
+                </span>
+
+                <strong>
+                    {{
+                    promocion.precio
+                    | currency:'MXN':'symbol-narrow'
+                    }}
+                </strong>
+            </div>
+
+            <footer class="promocion-actions">
+
+                <app-button variant="secondary" (buttonClick)="
+                editarPromocion(promocion)
+              ">
+                    Editar
+                </app-button>
+
+                <app-button [variant]="
+                promocion.activa
+                  ? 'danger'
+                  : 'success'
+              " (buttonClick)="
+                cambiarEstado(promocion)
+              ">
+                    {{
+                    promocion.activa
+                    ? 'Desactivar'
+                    : 'Activar'
+                    }}
+                </app-button>
+
+            </footer>
+
+        </article>
+
+        }
+
+    </section>
+
+    } @else {
+
+    <section class="promociones-empty">
+
+        <h2>
+            No hay promociones
+        </h2>
+
+        <p>
+            No existen promociones para
+            el filtro seleccionado.
+        </p>
+
+    </section>
+
+    }
+
+</section>

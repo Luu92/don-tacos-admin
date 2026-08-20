@@ -1,2 +1,100 @@
-<h1>Dashboard</h1>
-<p>Esta funcionalidad se construirá posteriormente.</p>
+<section class="categorias-page">
+
+  <header class="categorias-header">
+    <div>
+      <p class="categorias-eyebrow">
+        Administración
+      </p>
+
+      <h1>Categorías</h1>
+
+      <p>
+        Gestiona las categorías utilizadas
+        para organizar la carta de alimentos.
+      </p>
+    </div>
+
+    <app-button
+      variant="primary"
+      (buttonClick)="nuevaCategoria()"
+    >
+      + Nueva categoría
+    </app-button>
+  </header>
+
+  <section class="categorias-grid">
+
+    @for (
+      categoria of categorias();
+      track categoria.id
+    ) {
+
+      <article class="categoria-card">
+
+        <div class="categoria-image">
+          <img
+            [src]="categoria.imagen"
+            [alt]="categoria.nombre"
+          />
+        </div>
+
+        <div class="categoria-content">
+
+          <div>
+            <p class="categoria-label">
+              Categoría
+            </p>
+
+            <h2>
+              {{ categoria.nombre }}
+            </h2>
+          </div>
+
+          <div class="categoria-count">
+            <strong>
+              {{
+                contarAlimentos(
+                  categoria.id
+                )
+              }}
+            </strong>
+
+            <span>
+              alimentos
+            </span>
+          </div>
+
+        </div>
+
+        <footer class="categoria-actions">
+          <app-button
+            variant="secondary"
+            (buttonClick)="
+              editarCategoria(categoria)
+            "
+          >
+            Editar
+          </app-button>
+        </footer>
+
+      </article>
+
+    }
+
+  </section>
+
+</section>
+
+@if (formularioAbierto()) {
+  <app-categoria-form
+    [categoria]="categoriaSeleccionada()"
+    (guardar)="guardarCategoria($event)"
+    (cerrar)="cerrarFormulario()"
+  />
+}
+
+@if (mensajeToast(); as mensaje) {
+  <app-toast
+    [mensaje]="mensaje"
+  />
+}

@@ -241,6 +241,13 @@ export class PedidoService {
       ).length,
   );
 
+  readonly pedidosEntregados = computed(
+    () => 
+      this.pedidosSignal().filter(
+        (pedido) => pedido.estado === 'ENTREGADO',
+      ).length,
+  );
+
   constructor(
     private readonly notificationService: NotificationService,
   ) {

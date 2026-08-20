@@ -1,0 +1,79 @@
+<div class="form-overlay" (click)="cerrarFormulario()"></div>
+
+<aside class="categoria-form-panel" role="dialog" aria-modal="true" aria-label="Formulario de categoría">
+    <header class="categoria-form-header">
+        <div>
+            <p class="categoria-form-eyebrow">
+                Categorías
+            </p>
+
+            <h2>
+                {{
+                esEdicion()
+                ? 'Editar categoría'
+                : 'Nueva categoría'
+                }}
+            </h2>
+        </div>
+
+        <button type="button" class="categoria-form-close" aria-label="Cerrar formulario" (click)="cerrarFormulario()">
+            <svg viewBox="0 0 24 24">
+                <path d="M6 6l12 12M18 6L6 18"></path>
+            </svg>
+        </button>
+    </header>
+
+    <form class="categoria-form" [formGroup]="formulario" (ngSubmit)="guardarCategoria()">
+        <div class="form-field">
+            <label for="nombre">
+                Nombre
+            </label>
+
+            <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Tacos" />
+
+            @if (campoInvalido('nombre')) {
+            <small>
+                El nombre de la categoría es obligatorio.
+            </small>
+            }
+        </div>
+
+        <div class="form-field">
+            <label for="imagen">
+                URL de la imagen
+            </label>
+
+            <input id="imagen" type="text" formControlName="imagen" placeholder="https://..." />
+
+            @if (campoInvalido('imagen')) {
+            <small>
+                La imagen es obligatoria.
+            </small>
+            }
+        </div>
+
+        @if (formulario.controls.imagen.value) {
+        <div class="imagen-preview">
+            <span>
+                Vista previa
+            </span>
+
+            <img [src]="formulario.controls.imagen.value" alt="Vista previa de la categoría" />
+        </div>
+        }
+
+        <footer class="categoria-form-actions">
+            <app-button variant="secondary" (buttonClick)="cerrarFormulario()">
+                Cancelar
+            </app-button>
+
+            <app-button variant="primary" type="submit">
+                {{
+                esEdicion()
+                ? 'Guardar cambios'
+                : 'Agregar categoría'
+                }}
+            </app-button>
+        </footer>
+    </form>
+</aside>

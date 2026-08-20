@@ -1,2 +1,140 @@
-<h1>Dashboard</h1>
-<p>Esta funcionalidad se construirá posteriormente.</p>
+<section class="carta-page">
+
+    <header class="carta-header">
+        <div>
+            <p class="carta-eyebrow">
+                Administración
+            </p>
+
+            <h1>Carta de alimentos</h1>
+
+            <p>
+                Gestiona los alimentos disponibles
+                en la carta de Don Taco's Food.
+            </p>
+        </div>
+
+        <app-button variant="primary" (buttonClick)="nuevoAlimento()">
+            + Nuevo alimento
+        </app-button>
+    </header>
+
+    <section class="carta-toolbar">
+
+        <div class="categoria-filters" role="group" aria-label="Filtrar alimentos por categoría">
+            <button type="button" [class.categoria-filter--active]="
+          categoriaSeleccionada() === null
+        " (click)="seleccionarCategoria(null)">
+                Todos
+            </button>
+
+            @for (
+            categoria of categorias();
+            track categoria.id
+            ) {
+            <button type="button" [class.categoria-filter--active]="
+            categoriaSeleccionada() === categoria.id
+          " (click)="seleccionarCategoria(categoria.id)">
+                {{ categoria.nombre }}
+            </button>
+            }
+        </div>
+
+        <div class="carta-search">
+            <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7"></circle>
+
+                <path d="M20 20l-4-4"></path>
+            </svg>
+
+            <input type="search" placeholder="Buscar alimento..." (input)="buscar($event)" />
+        </div>
+
+    </section>
+
+    @if (alimentosFiltrados().length > 0) {
+
+    <section class="alimentos-table">
+
+        <div class="alimentos-table__header">
+            <span>Alimento</span>
+            <span>Categoría</span>
+            <span>Precio</span>
+            <span>Popularidad</span>
+            <span>Acción</span>
+        </div>
+
+        @for (
+        alimento of alimentosFiltrados();
+        track alimento.id
+        ) {
+
+        <article class="alimento-row">
+
+            <div class="alimento-info">
+                <img [src]="alimento.foto" [alt]="alimento.nombre" />
+
+                <div>
+                    <strong>
+                        {{ alimento.nombre }}
+                    </strong>
+
+                    <span>
+                        {{ alimento.descripcion }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="alimento-field" data-label="Categoría">
+                {{ obtenerNombreCategoria(
+                alimento.idCategoria
+                ) }}
+            </div>
+
+            <div class="alimento-price" data-label="Precio">
+                {{
+                alimento.precio
+                | currency:'MXN':'symbol-narrow'
+                }}
+            </div>
+
+            <div class="alimento-ranking" data-label="Ranking">
+                #{{ alimento.ranking }}
+            </div>
+
+            <div class="alimento-actions">
+                <app-button variant="secondary" (buttonClick)="
+                editarAlimento(alimento)
+              ">
+                    Editar
+                </app-button>
+            </div>
+
+        </article>
+
+        }
+
+    </section>
+
+    } @else {
+
+    <section class="carta-empty">
+        <h2>No se encontraron alimentos</h2>
+
+        <p>
+            Cambia la categoría o el término de búsqueda.
+        </p>
+    </section>
+
+    }
+
+</section>
+
+@if (formularioAbierto()) {
+<app-alimento-form [alimento]="alimentoSeleccionado()" [categorias]="categorias()" (guardar)="guardarAlimento($event)"
+    (cerrar)="cerrarFormulario()" />
+}
+
+@if (mensajeToast(); as mensaje) {
+<app-toast [mensaje]="mensaje" />
+}

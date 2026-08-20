@@ -43,6 +43,9 @@ export class ListaPedidos {
   protected readonly totalListos =
     this.pedidoService.totalListos;
 
+  protected readonly pedidosEntregados =
+  this.pedidoService.pedidosEntregados;
+
   protected readonly pedidosFiltrados = computed(() => {
     const filtro = this.filtroActivo();
 

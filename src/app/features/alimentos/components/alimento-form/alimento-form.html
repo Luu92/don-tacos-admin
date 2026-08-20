@@ -1,0 +1,175 @@
+<div class="form-overlay" (click)="cerrarFormulario()"></div>
+
+<aside class="alimento-form-panel" role="dialog" aria-modal="true" aria-label="Formulario de alimento">
+    <header class="alimento-form-header">
+
+        <div>
+            <p class="alimento-form-eyebrow">
+                Carta
+            </p>
+
+            <h2>
+                {{
+                esEdicion()
+                ? 'Editar alimento'
+                : 'Nuevo alimento'
+                }}
+            </h2>
+        </div>
+
+        <button type="button" class="alimento-form-close" aria-label="Cerrar formulario" (click)="cerrarFormulario()">
+            <svg viewBox="0 0 24 24">
+                <path d="M6 6l12 12M18 6L6 18"></path>
+            </svg>
+        </button>
+
+    </header>
+
+    <form class="alimento-form" [formGroup]="formulario" (ngSubmit)="guardarAlimento()">
+
+        <div class="form-field">
+            <label for="nombre">
+                Nombre
+            </label>
+
+            <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Taco al Pastor" />
+
+            @if (campoInvalido('nombre')) {
+            <small>
+                El nombre es obligatorio.
+            </small>
+            }
+        </div>
+
+        <div class="form-field">
+            <label for="descripcion">
+                Descripción
+            </label>
+
+            <textarea id="descripcion" rows="4" formControlName="descripcion"
+                placeholder="Describe el alimento"></textarea>
+
+            @if (campoInvalido('descripcion')) {
+            <small>
+                La descripción es obligatoria.
+            </small>
+            }
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-field">
+                <label for="precio">
+                    Precio
+                </label>
+
+                <div class="precio-input">
+                    <span>$</span>
+
+                    <input id="precio" type="number" min="1" step="0.01" formControlName="precio" />
+                </div>
+
+                @if (campoInvalido('precio')) {
+                <small>
+                    Ingresa un precio válido.
+                </small>
+                }
+            </div>
+
+            <div class="form-field">
+                <label for="categoria">
+                    Categoría
+                </label>
+
+                <select id="categoria" formControlName="idCategoria">
+                    <option [ngValue]="0">
+                        Selecciona
+                    </option>
+
+                    @for (
+                    categoria of categorias();
+                    track categoria.id
+                    ) {
+                    <option [ngValue]="categoria.id">
+                        {{ categoria.nombre }}
+                    </option>
+                    }
+                </select>
+
+                @if (campoInvalido('idCategoria')) {
+                <small>
+                    Selecciona una categoría.
+                </small>
+                }
+            </div>
+
+        </div>
+
+        <div class="form-field">
+            <label for="foto">
+                URL de la imagen
+            </label>
+
+            <input id="foto" type="text" formControlName="foto" placeholder="https://..." />
+
+            @if (campoInvalido('foto')) {
+            <small>
+                La imagen es obligatoria.
+            </small>
+            }
+        </div>
+
+        @if (formulario.controls.foto.value) {
+        <div class="imagen-preview">
+            <span>Vista previa</span>
+
+            <img [src]="formulario.controls.foto.value" alt="Vista previa del alimento" />
+        </div>
+        }
+
+        @if (esEdicion()) {
+        <div class="ranking-info">
+            <div>
+                <span>
+                    Ranking actual
+                </span>
+
+                <strong>
+                    #{{ alimento()?.ranking }}
+                </strong>
+            </div>
+
+            <p>
+                El ranking se calcula a partir de las
+                ventas y no puede modificarse manualmente.
+            </p>
+        </div>
+        }
+
+        @if (!esEdicion()) {
+        <div class="ranking-info">
+            <p>
+                El ranking será calculado automáticamente
+                conforme el alimento registre ventas.
+            </p>
+        </div>
+        }
+
+        <footer class="alimento-form-actions">
+
+            <app-button variant="secondary" (buttonClick)="cerrarFormulario()">
+                Cancelar
+            </app-button>
+
+            <app-button variant="primary" type="submit">
+                {{
+                esEdicion()
+                ? 'Guardar cambios'
+                : 'Agregar alimento'
+                }}
+            </app-button>
+
+        </footer>
+
+    </form>
+</aside>
