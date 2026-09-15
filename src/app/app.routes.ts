@@ -32,6 +32,12 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'pedidos-tabla',
+        loadComponent: () =>
+          import('./features/pedidos/pages/tabla-pedidos/tabla-pedidos')
+            .then((component) => component.TablaPedidos),
+      },
+      {
         path: 'alimentos',
         loadComponent: () =>
           import(

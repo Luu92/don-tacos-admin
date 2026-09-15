@@ -2,7 +2,10 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: block;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 .detalle-overlay {
@@ -13,14 +16,25 @@
 }
 
 .detalle-panel {
-  position: absolute;
-  inset: 0 0 0 auto;
-  width: min(520px, 100%);
+  position: relative;
+  z-index: 1;
+
+  width: min(760px, 100%);
+  max-height: calc(100vh - 48px);
+
   display: flex;
   flex-direction: column;
+
+  overflow: hidden;
+
+  border-radius: var(--radius-medium);
+
   background: var(--color-surface);
-  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.15);
-  animation: panel-in 220ms ease;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.22);
+
+  animation: modal-in 220ms ease;
 }
 
 .detalle-header {
@@ -346,20 +360,26 @@
     opacity: 1;
   }
 }
-
-@keyframes panel-in {
+@keyframes modal-in {
   from {
-    transform: translateX(100%);
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
   }
 
   to {
-    transform: translateX(0);
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
-
 @media (max-width: 560px) {
+
+  :host {
+    padding: 12px;
+  }
+
   .detalle-panel {
     width: 100%;
+    max-height: calc(100vh - 24px);
   }
 
   .detalle-header,

@@ -1,0 +1,404 @@
+<section class="pedidos-tabla">
+
+  <header class="pedidos-tabla__header">
+    <div>
+      <p class="pedidos-tabla__eyebrow">
+        Gestión de pedidos
+      </p>
+
+      <h1>Pedidos</h1>
+
+      <p class="pedidos-tabla__descripcion">
+        Consulta y administra los pedidos realizados
+        por los comensales.
+      </p>
+    </div>
+  </header>
+
+
+  <!-- RESUMEN -->
+
+  <section
+    class="resumen-pedidos"
+    aria-label="Resumen de pedidos"
+  >
+
+    <article class="resumen-card">
+      <div>
+        <span>Pendientes</span>
+        <strong>{{ totalPendientes() }}</strong>
+      </div>
+
+      <span class="resumen-card__indicador">
+        !
+      </span>
+    </article>
+
+    <article class="resumen-card">
+      <div>
+        <span>En preparación</span>
+        <strong>{{ totalEnPreparacion() }}</strong>
+      </div>
+
+      <span class="resumen-card__indicador">
+        ◷
+      </span>
+    </article>
+
+    <article class="resumen-card">
+      <div>
+        <span>Listos</span>
+        <strong>{{ totalListos() }}</strong>
+      </div>
+
+      <span class="resumen-card__indicador">
+        ✓
+      </span>
+    </article>
+
+    <article class="resumen-card">
+      <div>
+        <span>Entregados</span>
+        <strong>{{ pedidosEntregados() }}</strong>
+      </div>
+
+      <span class="resumen-card__indicador">
+        ✓
+      </span>
+    </article>
+
+  </section>
+
+
+  <!-- CONTENIDO -->
+
+  <section class="pedidos-tabla__contenido">
+
+    <div class="filtros">
+
+      <div class="filtros__titulo">
+        <strong>Listado de pedidos</strong>
+
+        <span>
+          {{ pedidosFiltrados().length }}
+          pedidos
+        </span>
+      </div>
+
+
+      <div
+        class="filtros__opciones"
+        aria-label="Filtrar pedidos"
+      >
+
+        <button
+          type="button"
+          [class.filtro--activo]="filtroActivo() === 'TODOS'"
+          (click)="cambiarFiltro('TODOS')"
+        >
+          Todos
+        </button>
+
+        <button
+          type="button"
+          [class.filtro--activo]="filtroActivo() === 'PENDIENTE'"
+          (click)="cambiarFiltro('PENDIENTE')"
+        >
+          Pendientes
+        </button>
+
+        <button
+          type="button"
+          [class.filtro--activo]="filtroActivo() === 'ACEPTADO'"
+          (click)="cambiarFiltro('ACEPTADO')"
+        >
+          Aceptados
+        </button>
+
+        <button
+          type="button"
+          [class.filtro--activo]="filtroActivo() === 'EN_PREPARACION'"
+          (click)="cambiarFiltro('EN_PREPARACION')"
+        >
+          En preparación
+        </button>
+
+        <button
+          type="button"
+          [class.filtro--activo]="filtroActivo() === 'LISTO'"
+          (click)="cambiarFiltro('LISTO')"
+        >
+          Listos
+        </button>
+
+        <button
+          type="button"
+          [class.filtro--activo]="filtroActivo() === 'ENVIADO'"
+          (click)="cambiarFiltro('ENVIADO')"
+        >
+          Enviados
+        </button>
+
+        <button
+          type="button"
+          [class.filtro--activo]="filtroActivo() === 'ENTREGADO'"
+          (click)="cambiarFiltro('ENTREGADO')"
+        >
+          Entregados
+        </button>
+
+      </div>
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div class="tabla-container">
+
+      @if (pedidosFiltrados().length > 0) {
+
+        <table class="tabla">
+
+          <thead>
+            <tr>
+              <th>Pedido</th>
+              <th>Comensal</th>
+              <th>Hora</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th class="tabla__acciones">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            @for (
+              pedido of pedidosFiltrados();
+              track pedido.id
+            ) {
+
+              <tr
+                class="tabla__fila"
+                tabindex="0"
+                (click)="verDetalle(pedido)"
+                (keydown.enter)="verDetalle(pedido)"
+              >
+
+                <td>
+                  <strong class="tabla__folio">
+                    #{{ pedido.folio }}
+                  </strong>
+                </td>
+
+                <td>
+                  <div class="tabla__cliente">
+                    <strong>
+                      {{ pedido.cliente.nombre }}
+                    </strong>
+
+                    <span>
+                      {{ pedido.cliente.telefono }}
+                    </span>
+                  </div>
+                </td>
+
+                <td>
+                  {{ pedido.hora }}
+                </td>
+
+                <td>
+                  <strong class="tabla__total">
+                    ${{ pedido.total.toFixed(2) }}
+                  </strong>
+                </td>
+
+                <td>
+                  <span
+                    class="estado"
+                    [class]="
+                      'estado estado--' +
+                      pedido.estado.toLowerCase()
+                    "
+                  >
+                    {{ nombreEstado(pedido.estado) }}
+                  </span>
+                </td>
+
+
+                <!-- ACCIONES -->
+
+                <td class="tabla__acciones">
+
+                  @switch (pedido.estado) {
+
+                    @case ('PENDIENTE') {
+
+                      <div class="tabla__botones">
+
+                        <button
+                          type="button"
+                          class="accion accion--aceptar"
+                          (click)="
+                            aceptarPedido(pedido.id);
+                            $event.stopPropagation()
+                          "
+                        >
+                          Aceptar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="accion accion--rechazar"
+                          (click)="
+                            solicitarRechazo(pedido.id);
+                            $event.stopPropagation()
+                          "
+                        >
+                          Rechazar
+                        </button>
+
+                      </div>
+
+                    }
+
+
+                    @case ('ACEPTADO') {
+
+                      <button
+                        type="button"
+                        class="accion accion--principal"
+                        (click)="
+                          avanzarEstado(pedido.id);
+                          $event.stopPropagation()
+                        "
+                      >
+                        Iniciar preparación
+                      </button>
+
+                    }
+
+
+                    @case ('EN_PREPARACION') {
+
+                      <button
+                        type="button"
+                        class="accion accion--principal"
+                        (click)="
+                          avanzarEstado(pedido.id);
+                          $event.stopPropagation()
+                        "
+                      >
+                        Marcar listo
+                      </button>
+
+                    }
+
+
+                    @case ('LISTO') {
+
+                      <button
+                        type="button"
+                        class="accion accion--principal"
+                        (click)="
+                          avanzarEstado(pedido.id);
+                          $event.stopPropagation()
+                        "
+                      >
+                        Enviar pedido
+                      </button>
+
+                    }
+
+
+                    @case ('ENVIADO') {
+
+                      <span class="tabla__sin-accion">
+                        Esperando confirmación
+                      </span>
+
+                    }
+
+
+                    @case ('ENTREGADO') {
+
+                      <span class="tabla__sin-accion">
+                        Finalizado
+                      </span>
+
+                    }
+
+
+                    @case ('RECHAZADO') {
+
+                      <span class="tabla__sin-accion">
+                        Sin acciones
+                      </span>
+
+                    }
+
+                  }
+
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      } @else {
+
+        <div class="tabla-vacia">
+          <div class="tabla-vacia__icon">
+      ✓
+    </div>
+          <strong>
+            No hay pedidos
+          </strong>
+
+          <p>
+            No existen pedidos con el estado seleccionado.
+          </p>
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+</section>
+
+
+<!-- DETALLE -->
+
+@if (pedidoSeleccionado(); as pedido) {
+
+  <app-pedido-detalle
+    [pedido]="pedido"
+    (cerrar)="cerrarDetalle()"
+  />
+
+}
+
+
+<!-- CONFIRMACIÓN DE RECHAZO -->
+
+@if (pedidoPendienteRechazo() !== null) {
+
+  <app-confirm-dialog
+    titulo="Rechazar pedido"
+    mensaje="¿Estás seguro de que deseas rechazar este pedido? Esta acción informará al comensal que la orden no pudo ser aceptada."
+    textoConfirmar="Sí, rechazar"
+    textoCancelar="Cancelar"
+    variantConfirmar="danger"
+    (confirmar)="confirmarRechazo()"
+    (cancelar)="cancelarRechazo()"
+  />
+
+}

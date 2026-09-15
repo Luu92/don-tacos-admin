@@ -10,10 +10,10 @@ interface MenuItem {
   etiqueta: string;
   ruta: string;
   icono:
-    | 'pedidos'
-    | 'alimentos'
-    | 'categorias'
-    | 'promociones';
+  | 'pedidos'
+  | 'alimentos'
+  | 'categorias'
+  | 'promociones';
 }
 
 @Component({
@@ -38,6 +38,11 @@ export class Sidebar {
     {
       etiqueta: 'Pedidos',
       ruta: '/admin/pedidos',
+      icono: 'pedidos',
+    },
+    {
+      etiqueta: 'Tabla de Pedidos',
+      ruta: '/admin/pedidos-tabla',
       icono: 'pedidos',
     },
     {
